@@ -1,0 +1,10 @@
+# This file may NEVER contain any sensitive data such as user names or passwords
+build:
+  version: @pom.version@
+
+spring:
+  application:
+    name: "testbed-java-spring-boot"
+  data:
+    rest:
+      basePath: "/"
