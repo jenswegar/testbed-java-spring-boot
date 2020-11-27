@@ -1,8 +1,11 @@
 package fi.wegar.jens.testbedapi.controller;
 
+import fi.wegar.jens.testbedapi.api.AppMetadataApi;
 import fi.wegar.jens.testbedapi.model.AppMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +15,7 @@ import java.net.UnknownHostException;
 
 @BasePathAwareController
 @RestController
-public class IndexController {
+public class AppMetadataController implements AppMetadataApi {
 
     @Value("${spring.application.name}")
     protected String appName;
@@ -20,8 +23,7 @@ public class IndexController {
     @Value("${build.version}")
     protected String appVersion;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
-    public AppMetadata index(){
+    public ResponseEntity<AppMetadata> appMetadata(){
 
         String hostname;
 
@@ -30,7 +32,12 @@ public class IndexController {
         } catch (UnknownHostException e) {
             hostname = "[unresolved]";
         }
-        return new AppMetadata(appName, appVersion, hostname);
 
+        return ResponseEntity.ok().body(
+                new AppMetadata()
+                        .version(appVersion)
+                        .hostname(hostname)
+                        .name(appName)
+        );
     }
 }

@@ -8,3 +8,7 @@ spring:
   data:
     rest:
       basePath: "/"
+
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: true

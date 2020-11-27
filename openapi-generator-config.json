@@ -1,0 +1,13 @@
+{
+  "dateLibrary": "java8",
+  "useBeanValidation": "true",
+  "useTags": "true",
+  "generateApiTests": "false",
+  "generateApiDocumentation": "false",
+  "supportingFiles": "false",
+  "serializableModel": "true",
+  "basePackage": "fi.wegar.jens.testbedapi",
+  "modelPackage": "fi.wegar.jens.testbedapi.model",
+  "apiPackage": "fi.wegar.jens.testbedapi.api",
+  "configPackage": "fi.wegar.jens.testbedapi.config"
+}

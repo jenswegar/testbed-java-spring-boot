@@ -1,0 +1,7 @@
+**/OpenAPI2SpringBoot.java
+
+# We create our own controllers so we can call the relevant services
+**/*Controller.java
+
+# Skip generating config because it uses RelativePath class that does not exist in springfox 3
+**/OpenAPIDocumentationConfig.java
