@@ -38,6 +38,7 @@ stages:
         publishJUnitResults: false
         testResultsFiles: '**/TEST-*.xml'
         goals: 'package'
+        options: '-Dspring.config.location=classpath:application.yml,classpath:application-test.yml'
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
