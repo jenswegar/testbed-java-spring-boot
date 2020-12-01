@@ -55,9 +55,14 @@ public class QuestionsController implements QuestionsApi {
     }
 
     public ResponseEntity<Question> getRandomQuestion() {
-        Question q = new Question().id(123L).text("lorem ipsum random");
 
-        return ResponseEntity.ok().body(q);
+        Optional<QuestionEntity> q = repository.randomQuestion();
+
+        if(q.isPresent()){
+            return ResponseEntity.ok().body(QuestionMapper.INSTANCE.toAPI(q.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     public ResponseEntity<Question> createQuestion(@ApiParam(value = "Create a new question" ,required=true )  @Valid @RequestBody QuestionRequest questionRequest) {
