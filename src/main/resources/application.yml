@@ -14,13 +14,13 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: true
 
   datasource:
-    url: "jdbc:mysql://localhost:3306/testbed_api"
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url: ${DB_CONNECTION_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: "create"
+      ddl-auto: "update"
     properties:
       hibernate:
-        dialect: "org.hibernate.dialect.MySQL55Dialect"
+        dialect: "org.hibernate.dialect.MariaDBDialect"
