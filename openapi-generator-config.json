@@ -1,5 +1,7 @@
 {
-  "dateLibrary": "java8",
+  "java8": true,
+  "dateLibrary": "custom",
+  "jsr310": true,
   "useBeanValidation": "true",
   "useTags": "true",
   "generateApiTests": "false",

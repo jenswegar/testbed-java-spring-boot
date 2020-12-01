@@ -12,6 +12,7 @@ buildNumber.properties
 
 # local dev settings
 application-dev.yml
+.env
 
 ### IntelliJ IDEA ###
 .idea

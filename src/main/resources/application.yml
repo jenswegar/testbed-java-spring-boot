@@ -12,3 +12,15 @@ spring:
   jackson:
     deserialization:
       FAIL_ON_UNKNOWN_PROPERTIES: true
+
+  datasource:
+    url: "jdbc:mysql://localhost:3306/testbed_api"
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: "create"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.MySQL55Dialect"

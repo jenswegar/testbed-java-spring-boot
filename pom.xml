@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
+		<org.projectlombok.version>1.18.16</org.projectlombok.version>
 	</properties>
 
 	<dependencies>
@@ -30,19 +32,51 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.mapstruct</groupId>
+					<artifactId>mapstruct</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.16</version>
+			<version>${org.projectlombok.version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-mapstruct-binding</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
 
 		<!--Required for swagger code generation-->
@@ -82,6 +116,35 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<!--<source>1.8</source>
+					<target>1.8</target> -->
+					<!-- See https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html -->
+					<!-- Classpath elements to supply as annotation processor path. If specified, the compiler   -->
+					<!-- will detect annotation processors only in those classpath elements. If omitted, the     -->
+					<!-- default classpath is used to detect annotation processors. The detection itself depends -->
+					<!-- on the configuration of annotationProcessors.                                           -->
+					<!--                                                                                         -->
+					<!-- According to this documentation, the provided dependency processor is not considered!   -->
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${org.projectlombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
 			<!--
                 * This plugin is used to handle the code generation with the configuration defined in openapi-generator-config.json
                 * the openapi specification will be placed in openapi.json as an imput spec
@@ -102,6 +165,14 @@
 							<configurationFile>${project.basedir}/openapi-generator-config.json</configurationFile>
 							<ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>
 							<generatorName>spring</generatorName>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+								<typeMapping>Date=LocalDate</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+								<importMapping>LocalDate=java.time.LocalDate</importMapping>
+							</importMappings>
 						</configuration>
 					</execution>
 				</executions>
