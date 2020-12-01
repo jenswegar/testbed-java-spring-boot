@@ -1,0 +1,18 @@
+#
+# Unit/Integration Test configs
+#
+
+logging:
+  level:
+    org.springframework: OFF
+    logging.level.root: OFF
+
+spring:
+  datasource:
+    url: "jdbc:h2:mem:test"  # JDBC url for database test database
+    username: tester         # Set in IDE run configuration or Docker .env file
+    password: tester         # Set in IDE run configuration or Docker .env file
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect

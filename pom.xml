@@ -80,16 +80,6 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
-		<!--Required for swagger code generation-->
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
-		<!-- locked at 2.9.2 because 3.0 has issues with openapi generator 4.x -->
-<!--		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
-		</dependency>
--->
-
 		<!-- https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable -->
 		<!-- required to generate code, need might be removed in future version of openapi generator -->
 		<dependency>
@@ -109,6 +99,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -123,15 +122,6 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<!--<source>1.8</source>
-					<target>1.8</target> -->
-					<!-- See https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html -->
-					<!-- Classpath elements to supply as annotation processor path. If specified, the compiler   -->
-					<!-- will detect annotation processors only in those classpath elements. If omitted, the     -->
-					<!-- default classpath is used to detect annotation processors. The detection itself depends -->
-					<!-- on the configuration of annotationProcessors.                                           -->
-					<!--                                                                                         -->
-					<!-- According to this documentation, the provided dependency processor is not considered!   -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
