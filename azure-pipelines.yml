@@ -52,11 +52,26 @@ stages:
         goals: 'package'
         options: '-Dspring.config.location=classpath:application.yml,classpath:application-test.yml'
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: Build the image
       inputs:
-        command: buildAndPush
+        command: build
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+              $(tag)
+    - task: prisma-cloud-compute-scan@3
+      displayName: Scan image for vurnelabilities
+      inputs:
+        scanType: 'images'
+        twistlockService: 'twistme locotech'
+        artifact: $(containerRegistry)/$(imageRepository):$(tag)
+    - task: Docker@2
+      displayName: Push the image to the registry
+      inputs:
+        command: push
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+              $(tag) 
